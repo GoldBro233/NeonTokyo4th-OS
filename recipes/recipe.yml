@@ -1,45 +1,103 @@
 ---
 # yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
 # image will be published to ghcr.io/<user>/<name>
-name: template
-# description will be included in the image's metadata
-description: This is my personal OS image.
+name: NeonTokyo4th-OS
+description: The latest operation and maintenance system of the 4th Neon Tokyo City.
 
 # the base image to build on top of (FROM) and the version tag to use
-base-image: ghcr.io/ublue-os/silverblue-main
-image-version: 42 # latest is also supported if you want new updates ASAP
+base-image: ghcr.io/ublue-os/kinoite-main
+image-version: latest
 
-# module configuration, executed in order
-# you can include multiple instances of the same module
 modules:
+  # Files Settings
   - type: files
     files:
       - source: system
-        destination: / # copies files/system/* (* means everything inside it) into your image's root folder /
+        destination: /
 
+  # Install default tools in system and Remove some packages
   - type: dnf
     repos:
+      nonfree: rpmfusion
       copr:
-        - atim/starship
+        - dejan/lazygit
     install:
+      allow-erasing: true
+      skip-broken: true
       packages:
-        - micro
-        - starship
+      # --- Shell and Terminal ---
+        - alacritty
+        - zsh
+      # --- Terminal Tools ---
+        - bat
+        - zoxide
+        - fastfetch
+        - btop
+        - htop
+        - powertop
+        - less
+        - riggrep
+        - yazi
+        - wl-clipboard
+        - util-linux-user
+      # --- Development ---
+        - neovim
+        - helix
+        - code
+        - distrobox
+        - podman-compose
+        - gh
+        - lazygit
+      # --- Input ---
+        - fcitx5
+        - fcitx5-rime
+      # --- Zip / Unzip ---
+        - p7zip
+        - p7zip-doc
+        - p7zip-gui
+        - p7zip-plugins
+        - zstd
+        - tar
+        - zip
+        - unzip
+      # --- Useful Tools ---
+        - clash-meta
+      # --- System-Wide Tools ---
+        - lm_sensors
+        - collectd-sensors
+      # --- Fonts ---
+        - google-noto-fonts-all
+        - wqy-zenhei-fonts
+        - fontawesome-fonts-all
     remove:
       packages:
-        # example: removing firefox (in favor of the flatpak)
-        # "firefox" is the main package, "firefox-langpacks" is a dependency
         - firefox
-        - firefox-langpacks # also remove firefox dependency (not required for all packages, this is a special case)
+        - firefox-langpacks
 
   - type: default-flatpaks
     configurations:
       - notify: true # Send notification after install/uninstall is finished (true/false)
         scope: system
-        # If no repo information is specified, Flathub will be used by default
-        install: # system flatpaks we want all users to have and not remove
-          - org.mozilla.firefox
-          - org.gnome.Loupe
-      - scope: user # Also add Flathub user repo, but no user packages
+        install:
+          - runtime/org.freedesktop.Platform/x86_64/25.08
+          - com.google.Chrome
+          - org.localsend.localsend_app
+      - scope: user
+          - io.github.kukuruzka165.materialgram
 
+  - type: systemd
+    system:
+      disabled:
+        - flatpak-system-update.timer
+      enabled:
+        - clash-meta.service
+
+  - type: os-release
+    properties:
+      NAME: NeonTokyo4thOS
+      VERSION: Latest
+      PRETTY_NAME: "NeonTokyo4th-OS"
+      VARIANT: "General"
+      VERIANT_ID: general
+      
   - type: signing # this sets up the proper policy & signing files for signed images to work fully
