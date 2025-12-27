@@ -82,8 +82,6 @@ modules:
           - runtime/org.freedesktop.Platform/x86_64/25.08
           - com.google.Chrome
           - org.localsend.localsend_app
-      - notify: true
-        scope: user
           - io.github.kukuruzka165.materialgram
 
   - type: systemd
