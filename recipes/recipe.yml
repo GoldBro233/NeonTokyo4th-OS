@@ -76,13 +76,14 @@ modules:
 
   - type: default-flatpaks
     configurations:
-      - notify: true # Send notification after install/uninstall is finished (true/false)
+      - notify: false # Send notification after install/uninstall is finished (true/false)
         scope: system
         install:
           - runtime/org.freedesktop.Platform/x86_64/25.08
           - com.google.Chrome
           - org.localsend.localsend_app
-      - scope: user
+      - notify: true
+        scope: user
           - io.github.kukuruzka165.materialgram
 
   - type: systemd
