@@ -16,7 +16,7 @@ modules:
         destination: /
 
   # Install default tools in system and Remove some packages
-  - type: dnf
+  - type: dnf 
     repos:
       nonfree: rpmfusion
       copr:
@@ -27,7 +27,7 @@ modules:
       packages:
       # --- Shell and Terminal ---
         - alacritty
-        - zsh
+        - fish
       # --- Terminal Tools ---
         - bat
         - zoxide
