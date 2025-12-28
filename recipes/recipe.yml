@@ -15,19 +15,40 @@ modules:
       - source: system
         destination: /
 
+  - type: brew
+    nofile-limits: true
+    brew-analytics: false
+
+  - type: fonts
+    fonts:
+      nerd-fonts:
+        - JetBrainsMono
+      url-fonts:
+        - name: MapleMonoNerdNFNormal
+          url: https://github.com/subframe7536/maple-font/releases/download/v7.9/MapleMonoNormal-NF-unhinted.zip
+
+  # Add Terra Packages
+  - type: dnf
+    install:
+      packages:
+        - terra-release
+        - terra-release-extra
+
   # Install default tools in system and Remove some packages
   - type: dnf 
     repos:
       nonfree: rpmfusion
       copr:
         - dejan/lazygit
+        - lihaohong/yazi
     install:
       allow-erasing: true
       skip-broken: true
+      skip-unavailable: true
       packages:
-      # --- Shell and Terminal ---
+        # --- Shell and Terminal ---
         - alacritty
-        - fish
+        - zsh
       # --- Terminal Tools ---
         - bat
         - zoxide
@@ -36,22 +57,23 @@ modules:
         - htop
         - powertop
         - less
-        - riggrep
+        - ripgrep
         - yazi
         - wl-clipboard
         - util-linux-user
-      # --- Development ---
+        # --- Development ---
         - neovim
         - helix
         - code
+        - zed
         - distrobox
         - podman-compose
         - gh
         - lazygit
-      # --- Input ---
+        # --- Input ---
         - fcitx5
         - fcitx5-rime
-      # --- Zip / Unzip ---
+        # --- Zip / Unzip ---
         - p7zip
         - p7zip-doc
         - p7zip-gui
@@ -60,12 +82,14 @@ modules:
         - tar
         - zip
         - unzip
-      # --- Useful Tools ---
+        # --- Useful Tools ---
         - clash-meta
-      # --- System-Wide Tools ---
+        # --- System-Wide Tools ---
         - lm_sensors
         - collectd-sensors
-      # --- Fonts ---
+        - ffmpeg
+        - ImageMagick
+        # --- Fonts ---
         - google-noto-fonts-all
         - wqy-zenhei-fonts
         - fontawesome-fonts-all
@@ -76,10 +100,9 @@ modules:
 
   - type: default-flatpaks
     configurations:
-      - notify: false # Send notification after install/uninstall is finished (true/false)
+      - notify: true # Send notification after install/uninstall is finished (true/false)
         scope: system
         install:
-          - runtime/org.freedesktop.Platform/x86_64/25.08
           - com.google.Chrome
           - org.localsend.localsend_app
           - io.github.kukuruzka165.materialgram
@@ -98,5 +121,5 @@ modules:
       PRETTY_NAME: "NeonTokyo4th-OS"
       VARIANT: "General"
       VERIANT_ID: general
-      
+
   - type: signing # this sets up the proper policy & signing files for signed images to work fully
