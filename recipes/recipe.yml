@@ -49,7 +49,7 @@ modules:
         # --- Shell and Terminal ---
         - alacritty
         - fish
-      # --- Terminal Tools ---
+        # --- Terminal Tools ---
         - bat
         - zoxide
         - fastfetch
@@ -89,6 +89,7 @@ modules:
         - collectd-sensors
         - ffmpeg
         - ImageMagick
+        - podman
         # --- Fonts ---
         - google-noto-fonts-all
         - wqy-zenhei-fonts
