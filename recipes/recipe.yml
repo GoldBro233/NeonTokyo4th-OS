@@ -87,6 +87,8 @@ modules:
         # --- System-Wide Tools ---
         - lm_sensors
         - collectd-sensors
+        - ffmpeg
+        - ImageMagick
         # --- Fonts ---
         - google-noto-fonts-all
         - wqy-zenhei-fonts
