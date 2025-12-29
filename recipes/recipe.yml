@@ -41,6 +41,7 @@ modules:
       copr:
         - dejan/lazygit
         - lihaohong/yazi
+        - dfas/syncthingtray-qt6
     install:
       allow-erasing: true
       skip-broken: true
@@ -90,6 +91,8 @@ modules:
         - ffmpeg
         - ImageMagick
         - podman
+        - syncthing
+        - syncthingtray-qt6
         # --- Fonts ---
         - google-noto-fonts-all
         - wqy-zenhei-fonts
