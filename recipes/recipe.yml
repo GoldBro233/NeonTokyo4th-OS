@@ -9,12 +9,38 @@ base-image: ghcr.io/ublue-os/kinoite-main
 image-version: latest
 
 modules:
-  # Files Settings
+  # Move Repos
   - type: files
     files:
       - source: repos
         destination: /etc/yum.repos.d/
 
+  # Fonts
+  - type: fonts
+    fonts:
+      google-fonts:
+        - Noto Sans Japanese
+        - Noto Sans Korean
+        - Noto Sans Traditional Chinese
+        - Noto Sans Simplified Chinese
+        - Noto Sans Symbols
+        - Noto Serif Japanese
+        - Noto Serif Korean
+        - Noto Serif Traditional Chinese
+        - Noto Serif Simplified Chinese
+        - Noto Emoji
+        - Noto Color Emoji
+        - Noto Sans Math
+        - Noto Sans Symbols
+        - Noto Sans Symbols 2
+      url-fonts:
+        - name: MapleMonoNerdNFNormal
+          url: https://github.com/subframe7536/maple-font/releases/download/v7.9/MapleMonoNormal-NF-unhinted.zip
+        - name: wqy-zenhei
+          url: https://psychz.dl.sourceforge.net/project/wqy/wqy-zenhei/0.9.45%20%28Fighting-state%20RC1%29/wqy-zenhei-0.9.45.tar.gz
+        - name: fontawesome-free
+          url: https://github.com/FortAwesome/Font-Awesome/releases/download/7.1.0/fontawesome-free-7.1.0-desktop.zip
+  
   # Add Terra Packages
   - type: dnf
     install:
@@ -52,7 +78,6 @@ modules:
         # --- Development ---
         - neovim
         - helix
-        - code
         - distrobox
         - podman-compose
         - gh
@@ -74,25 +99,25 @@ modules:
         # --- System-Wide Tools ---
         - lm_sensors
         - collectd-sensors
-        - ffmpeg
         - ImageMagick
         - podman
         - syncthing
         - tailscale
-        # --- Fonts ---
-        - google-noto-sans-fonts
-        - google-noto-serif-fonts
-        - google-noto-sans-cjk-fonts
-        - google-noto-serif-cjk-fonts
-        - google-noto-emoji-fonts
-        - google-roboto-mono-fonts
-        - google-noto-sans-math-fonts
-        - wqy-zenhei-fonts
-        - fontawesome-fonts-all
     remove:
       packages:
         - firefox
         - firefox-langpacks
+
+  - type: dnf
+    repos:
+      nonfree: rpmfusion
+    install:
+      allow-erasing: true
+      skip-broken: true
+      skip-unavailable: true
+      packages:
+        - code
+        - ffmpeg
 
   - type: default-flatpaks
     configurations:
@@ -102,12 +127,6 @@ modules:
           - com.google.Chrome
           - org.localsend.localsend_app
           - io.github.kukuruzka165.materialgram
-
-  - type: fonts
-    fonts:
-      url-fonts:
-        - name: MapleMonoNerdNFNormal
-          url: https://github.com/subframe7536/maple-font/releases/download/v7.9/MapleMonoNormal-NF-unhinted.zip
 
   - type: brew
     nofile-limits: true
