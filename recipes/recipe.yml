@@ -36,8 +36,6 @@ modules:
       url-fonts:
         - name: MapleMonoNerdNFNormal
           url: https://github.com/subframe7536/maple-font/releases/download/v7.9/MapleMonoNormal-NF-unhinted.zip
-        - name: wqy-zenhei
-          url: https://psychz.dl.sourceforge.net/project/wqy/wqy-zenhei/0.9.45%20%28Fighting-state%20RC1%29/wqy-zenhei-0.9.45.tar.gz
         - name: fontawesome-free
           url: https://github.com/FortAwesome/Font-Awesome/releases/download/7.1.0/fontawesome-free-7.1.0-desktop.zip
   
