@@ -12,20 +12,8 @@ modules:
   # Files Settings
   - type: files
     files:
-      - source: system
-        destination: /
-
-  - type: brew
-    nofile-limits: true
-    brew-analytics: false
-
-  - type: fonts
-    fonts:
-      nerd-fonts:
-        - JetBrainsMono
-      url-fonts:
-        - name: MapleMonoNerdNFNormal
-          url: https://github.com/subframe7536/maple-font/releases/download/v7.9/MapleMonoNormal-NF-unhinted.zip
+      - source: repos
+        destination: /etc/yum.repos.d/
 
   # Add Terra Packages
   - type: dnf
@@ -41,7 +29,6 @@ modules:
       copr:
         - dejan/lazygit
         - lihaohong/yazi
-        - dfas/syncthingtray-qt6
     install:
       allow-erasing: true
       skip-broken: true
@@ -66,7 +53,6 @@ modules:
         - neovim
         - helix
         - code
-        - zed
         - distrobox
         - podman-compose
         - gh
@@ -92,9 +78,15 @@ modules:
         - ImageMagick
         - podman
         - syncthing
-        - syncthingtray-qt6
+        - tailscale
         # --- Fonts ---
-        - google-noto-fonts-all
+        - google-noto-sans-fonts
+        - google-noto-serif-fonts
+        - google-noto-sans-cjk-fonts
+        - google-noto-serif-cjk-fonts
+        - google-noto-emoji-fonts
+        - google-roboto-mono-fonts
+        - google-noto-sans-math-fonts
         - wqy-zenhei-fonts
         - fontawesome-fonts-all
     remove:
@@ -104,12 +96,27 @@ modules:
 
   - type: default-flatpaks
     configurations:
-      - notify: true # Send notification after install/uninstall is finished (true/false)
+      - notify: false # Send notification after install/uninstall is finished (true/false)
         scope: system
         install:
           - com.google.Chrome
           - org.localsend.localsend_app
           - io.github.kukuruzka165.materialgram
+
+  - type: fonts
+    fonts:
+      url-fonts:
+        - name: MapleMonoNerdNFNormal
+          url: https://github.com/subframe7536/maple-font/releases/download/v7.9/MapleMonoNormal-NF-unhinted.zip
+
+  - type: brew
+    nofile-limits: true
+    brew-analytics: false
+
+  - type: files
+    files:
+      - source: system
+        destination: /
 
   - type: systemd
     system:
