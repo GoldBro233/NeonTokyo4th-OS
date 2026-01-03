@@ -53,13 +53,14 @@ modules:
       copr:
         - dejan/lazygit
         - lihaohong/yazi
+        - wezfurlong/wezterm-nightly
     install:
       allow-erasing: true
       skip-broken: true
       skip-unavailable: true
       packages:
         # --- Shell and Terminal ---
-        - alacritty
+        - wezterm
         - fish
         # --- Terminal Tools ---
         - bat
