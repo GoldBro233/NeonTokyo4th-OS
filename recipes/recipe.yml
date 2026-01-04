@@ -50,17 +50,12 @@ modules:
   - type: dnf 
     repos:
       nonfree: rpmfusion
-      copr:
-        - dejan/lazygit
-        - lihaohong/yazi
-        - wezfurlong/wezterm-nightly
     install:
       allow-erasing: true
       skip-broken: true
       skip-unavailable: true
       packages:
         # --- Shell and Terminal ---
-        - wezterm
         - fish
         # --- Terminal Tools ---
         - bat
@@ -71,7 +66,6 @@ modules:
         - powertop
         - less
         - ripgrep
-        - yazi
         - wl-clipboard
         - util-linux-user
         # --- Development ---
@@ -80,7 +74,6 @@ modules:
         - distrobox
         - podman-compose
         - gh
-        - lazygit
         # --- Input ---
         - fcitx5
         - fcitx5-rime
@@ -106,6 +99,25 @@ modules:
       packages:
         - firefox
         - firefox-langpacks
+
+  - type: dnf
+    repos:
+      nonfree: rpmfusion
+      copr:
+        - dejan/lazygit
+        - lihaohong/yazi
+        - wezfurlong/wezterm-nightly
+        - relativesure/all-packages
+    install:
+      allow-erasing: true
+      skip-broken: true
+      skip-unavailable: true
+      packages:
+        - lazygit
+        - yazi
+        - wezterm
+        - lua-language-server
+        - zellij
 
   - type: dnf
     repos:
